@@ -5,7 +5,10 @@ const router = express.Router()
 //@route   GET /
 router.get('/', (req,res)  => {
     //res.send('login')
-    res.render('Login')
+    //res.render('Login')
+    res.render('Login',{
+        layout: 'login',
+    })
 })
 
 //@desc    Dashboard
