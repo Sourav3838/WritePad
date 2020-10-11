@@ -16,4 +16,11 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 	res.redirect('/dashboard');
 });
 //so if the authentication is successfull then it will take us to the dashboard, if not it will redirect to the main page
+
+// @desc    Logout user
+// @route   GET /auth/logout
+router.get('/logout', (req, res) => {
+	req.logOut();
+	res.redirect('/');
+});
 module.exports = router;
