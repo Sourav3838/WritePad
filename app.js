@@ -3,13 +3,16 @@ const express= require('express')
 const dotenv= require('dotenv')
 //logging
 const morgan =require('morgan')
-
+const mongoose = require('mongoose')
 
 const session = require('express-session');
+//creating sessions
+const MongoStore = require('connect-mongo')(session)
 const passport = require('passport');
 
 //templates
-const exphbs =require('express-handlebars')                                             
+const exphbs =require('express-handlebars')  
+const { Mongoose } = require('mongoose');                                           
 const connectDB = require('./config/db')
 //load config
 dotenv.config({path: './config/config.env'})
@@ -34,6 +37,10 @@ app.use(
 		secret: 'keyboard cat', //it can be anything
 		resave: false, //do not resave the session if nothing is changed
 		saveUninitialized: false, //do not create a session until nothing is stored in it
+		store: new MongoStore({mongooseConnection : mongoose.connection})
+		//now everytime you open the application you dont have to choose your gmail id ,your session will always be stored
+		//it will create a sessions table on mongoose collection 
+		//if you are on dashboard and refresh the page still ypu will be redirected to the dashboard only....where earlier it use to get redirected to the login page
 	})
 );
 
