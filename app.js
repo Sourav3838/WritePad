@@ -21,6 +21,11 @@ require('./config/passport')(passport); //passed the passport const to config/pa
 connectDB()
 const app = express()
 
+
+//body parser
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
+
 // logging
 //process.env helps in accessing enviornment variables
 if(process.env.NODE_ENV === 'development'){
