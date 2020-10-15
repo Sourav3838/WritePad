@@ -14,10 +14,10 @@ router.get('/',ensureGuest, (req,res)  => {
 
 //@desc    Dashboard
 //@route   GET /dashboard
-router.get('/dashboard',ensureAuth, (req,res)  => {
+router.get('/dashboard',ensureAuth, async (req,res)  => {
     //res.send('Dashboard')
     try {
-        const stories= Story.find({ user: req.user.id}).lean()
+        const stories= await Story.find({ user: req.user.id}).lean()
 		//in order to pass the values taken from NOSQL database to templates like hanflebar we have to convert the data into js object for that we use lean
 		console.log(req.user);
 		res.render('dashboard',{
