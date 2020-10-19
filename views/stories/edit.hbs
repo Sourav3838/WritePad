@@ -1,9 +1,9 @@
-<h3>Add Story</h3>
+<h3>Edit Story</h3>
 <div class="row">
     <form action="/stories" method="post" class="col s12">
         <div class="row">
             <div class="input-field">
-                <input type="text" name="title" id="title">
+                <input type="text" name="title"  value="{{story.title}}" id="title">
                 <label for="title"></label>
             </div>
         </div>
@@ -13,7 +13,7 @@
                 <select name="status" id="status">
                     <option value="public" selected>Public</option>
                     <option value="private">Private</option>
-                  
+                   
                 </select>
                 <label for="status">Status</label>
             </div>
@@ -22,13 +22,13 @@
         <div class="row">
             <div class="input-field">
                 <h5>Tell your Story:</h5>
-                <textarea name="body" id="body"></textarea>
+                <textarea name="body" id="body">{{story.body}}</textarea>
             </div>
         </div>
 
         <div class="row">
             <input type="submit" value="Save" class="btn">
-            <a href="/dashboaard" class="btn orange">Cancel</a>
+            <a href="/dashboard" class="btn orange">Cancel</a>
         </div>
     </form>
-</div>
+</div> 
