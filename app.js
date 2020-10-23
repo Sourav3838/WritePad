@@ -9,7 +9,7 @@ const session = require("express-session");
 //creating sessions
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
-
+const methodOverride = require("method-override");
 //templates
 const exphbs = require("express-handlebars");
 const { Mongoose } = require("mongoose");
@@ -24,6 +24,18 @@ const app = express();
 //body parser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+//so that we can pass hidden methods like PUT and  DELETE ,while the form will be having a method as POST
+app.use(
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      // look in urlencoded POST bodies and delete it
+      var method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  })
+);
 
 // logging
 //process.env helps in accessing enviornment variables
