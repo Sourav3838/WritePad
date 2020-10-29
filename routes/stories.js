@@ -93,4 +93,25 @@ router.delete("/:id", ensureAuth, async (req, res) => {
     res.redirect("/dashboard");
   }
 });
+
+//Populate will automatically replace the specified path in the document, with document(s) from other collection(s)
+//@desc    show story
+//@route   GET /stories/id
+router.get("/:id", ensureAuth, async (req, res) => {
+  try {
+    let story = await Story.findById(req.params.id).populate("user").lean();
+
+    if (!story) {
+      return res.render("error/404");
+    }
+
+    res.render("stories/show", {
+      story,
+    });
+  } catch (err) {
+    console.error(err);
+    res.render("error/404");
+  }
+});
+
 module.exports = router;
