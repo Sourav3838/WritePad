@@ -15,14 +15,14 @@ router.post("/", ensureAuth, async (req, res) => {
   try {
     req.body.user = req.user.id;
     await Story.create(req.body);
-    toast({
+    const toastCreated = toast({
       appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
       title: "WritePad",
       message: "Story Created",
       icon: "D:\\Desktop\\25231.png",
       attribution: "Via Web",
     }).catch((err) => console.error(err));
-    res.redirect("/dashboard");
+    if (toastCreated) res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.render("error/500");
@@ -39,6 +39,9 @@ router.get("/", ensureAuth, async (req, res) => {
       .lean();
     res.render("stories/index", {
       stories,
+      text: "Public Stories",
+      chipShow: "show",
+      applyProperty: "",
     });
   } catch (err) {
     console.log(err);
@@ -96,7 +99,7 @@ router.put("/:id", ensureAuth, async (req, res) => {
         new: true, //if not existing then create one
         runValidators: true, //to make sure that the fields are valid
       });
-      const toasty = toast({
+      const toastUpdate = toast({
         appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
         title: "WritePad",
         message: "Story Updated",
@@ -104,7 +107,7 @@ router.put("/:id", ensureAuth, async (req, res) => {
         attribution: "Via Web",
       }).catch((err) => console.error(err));
 
-      if (toasty) {
+      if (toastUpdate) {
         res.redirect("/dashboard");
       }
     }
@@ -119,7 +122,7 @@ router.put("/:id", ensureAuth, async (req, res) => {
 router.delete("/:id", ensureAuth, async (req, res) => {
   try {
     await Story.remove({ _id: req.params.id });
-    const toasty = toast({
+    const toastDelete = toast({
       appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
       title: "WritePad",
       message: "Story Deleted",
@@ -127,7 +130,7 @@ router.delete("/:id", ensureAuth, async (req, res) => {
       attribution: "Via Web",
     }).catch((err) => console.error(err));
 
-    if (toasty) {
+    if (toastDelete) {
       res.redirect("/dashboard");
     }
   } catch (err) {
@@ -166,16 +169,21 @@ router.get("/user/:userId", ensureAuth, async (req, res) => {
     })
       .populate("user")
       .lean();
-    toast({
+    const toastBy = toast({
       appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
       title: "WritePad",
       message: `Stories By ` + stories[0].user.displayName,
       icon: "D:\\Desktop\\25231.png",
       attribution: "Via Web",
     }).catch((err) => console.error(err));
-    res.render("stories/index", {
-      stories,
-    });
+    if (toastBy) {
+      res.render("stories/index", {
+        stories,
+        text: `Stories By ` + stories[0].user.displayName,
+        chipShow: "",
+        applyProperty: "show",
+      });
+    }
   } catch (err) {
     console.error(err);
     res.render("error/500");

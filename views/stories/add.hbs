@@ -1,10 +1,16 @@
-<h3>Add Story</h3>
+<div class="container" style="border:2px solid brown;
+        padding:2% 2% 2% 2%;
+        margin-top:2%;
+        margin-bottom:2%;
+       background-color:orange;
+        color:black">
+<h3><b>Add A Story</b> </h3>
 <div class="row">
     <form action="/stories" method="post" class="col s12">
         <div class="row">
             <div class="input-field">
                 <input type="text" name="title"  placeholder="Name Your Story" id="title" required>
-                <label for="title"></label>
+                <label  style="color:black"for="title"><b>Name Your Story</b></label>
             </div>
         </div>
 
@@ -15,7 +21,7 @@
                     <option value="private">Private</option>
                   
                 </select>
-                <label for="status">Status</label>
+                <label for="status" style="color:black"><b>Status</b></label>
             </div>
         </div>
 
@@ -28,7 +34,7 @@
 
         <div class="row">
             <input type="submit" value="Save" class="btn">
-            <a href="/dashboaard" class="btn orange">Cancel</a>
+            <a href="/dashboard" class="btn red">Cancel</a>
         </div>
     </form>
-</div>
+</div></div>

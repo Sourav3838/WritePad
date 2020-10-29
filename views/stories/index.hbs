@@ -1,4 +1,9 @@
-<h3>stories</h3>
+<br><div class="container-fluid" 
+{{#if applyProperty}}
+style= "background-image: linear-gradient(to bottom right, red, yellow);padding:4% 2% 4% 0%">
+{{/if}}
+
+<h3><b>{{text}}</b></h3>
 <div class="row">
     {{#each stories}}
     <div class="col s14 m4">
@@ -12,10 +17,15 @@
                 <h5>{{title}}</h5>
                 <p>{{ stripTags (truncate body 200)}}</p>
                 <br>
+                  {{#if ../chipShow}}
                 <div class="chip">
                     <img src="{{user.image}}">
                     <a href="stories/user/{{user._id}}">{{user.displayName}}</a>
                 </div>
+              {{else}}
+            <div>Enjoy!!</div>
+                {{/if}}
+                
             </div>
             <div class="card-action center-align">
                 <a href="/stories/{{_id}}" class="btn grey">Read More</a>
@@ -25,4 +35,4 @@
     {{else}}
     <p>no public stories</p>
     {{/each}}
-</div>
+</div></div>

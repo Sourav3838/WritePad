@@ -16,14 +16,14 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    toast({
+    const toasty = toast({
       appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
       title: "WritePad",
       message: "Log In Successfull",
       icon: "D:\\Desktop\\25231.png",
       attribution: "Via Web",
     }).catch((err) => console.error(err));
-    res.redirect("/dashboard");
+    if (toasty) res.redirect("/dashboard");
   }
 );
 //so if the authentication is successfull then it will take us to the dashboard, if not it will redirect to the main page
@@ -31,14 +31,16 @@ router.get(
 // @desc    Logout user
 // @route   GET /auth/logout
 router.get("/logout", (req, res) => {
-  toast({
+  const toastify = toast({
     appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
     title: "WritePad",
     message: "Log Out Successfull",
     icon: "D:\\Desktop\\25231.png",
     attribution: "Via Web",
   }).catch((err) => console.error(err));
-  req.logOut();
-  res.redirect("/");
+  if (toastify) {
+    req.logOut();
+    res.redirect("/");
+  }
 });
 module.exports = router;

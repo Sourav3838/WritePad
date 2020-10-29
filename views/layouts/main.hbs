@@ -10,14 +10,21 @@
         crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css">
     <title>writepad</title>
+      <link rel = "icon" href = "image/WritePad.JPG" type = "image/x-icon">
 </head>
 
-<body>
+<body style=" 
+        background-image: url('image/bgMain.jpg');
+        background-repeat: no-repeat; 
+        background-attachment: fixed;
+        background-size: cover;
+        color:black">
     {{> _header}}
     {{> _add_btn}}
     {{!-- way to add partials(that are suppose to be inserted --}}
-    <div class="container"></div>
+    <div class="container-fluid" style="margin: 0% 4% 0% 4%;">
     {{{body}}}
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.15.0/ckeditor.js"
         integrity="sha512-bNMnTgKRxN1n+5rgfcf160HT2koHRcwLcSq/3JDOY9R65mja48E4Hh+a+IQXVaY2NoJCVC+pr0qE3Vz194QwnA=="

@@ -1,28 +1,28 @@
-<h3>Good To See You {{name}}</h3>
+<h3><b>Great To See You {{name}}</b></h3>
 {{#if stories}}
-<p>here are your stories</p>
+
 <table class="striped">
     <thead>
         <tr>
-            <th>title</th>
-            <th>date</th>
-            <th>status</th>
+            <th><h5><b>Title</b></h5></th>
+            <th><h5><b>Date</b></h5></th>
+            <th><h5><b>Status</b></h5></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {{#each stories}}
         <tr>
-            <td><a href="/stories/{{_id}}">{{title}}</a></td>
+            <td style="color:black"><a href="/stories/{{_id}}"><h5><b>{{title}}</b></h5></a></td>
             {{!-- the line below has handlebar helper function(date,format) , where date is 'createdAt' and format is 'LLLL' --}}
-            <td>{{formatDate createdAt 'LLLL'}}</td>
-            <td><span class="dash-status">{{status}}</span></td>
-            <td> <a href="/stories/edit/{{_id}}" class="btn btn-float green">
+            <td><b>{{formatDate createdAt 'LLLL'}}</b></td>
+            <td><span class="dash-status"><b>{{status}}</b></span></td>
+            <td> <a href="/stories/edit/{{_id}}" class="btn btn-float orange">
                     <i class="fas fa-edit"></i>
                 </a>
                 <form action="/stories/{{_id}}" method="post" id="delete-form">
                       <input type="hidden" name="_method" value="DELETE">
-                      <button type="submit" class="btn teal">
+                      <button type="submit" class="btn red">
                           <i class="fas fa-trash"></i>
                       </button>
                 </form></td>
