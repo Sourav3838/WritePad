@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
-const toast = require("powertoast");
+const toast = require("powertoast"); //for notifications on user actions
 //@description:- Authenticate with google
 //@rooute :-  /auth/google
 //@method :- GET
@@ -16,6 +16,7 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
+    //notification displayed on successfull login
     const toasty = toast({
       appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
       title: "WritePad",
@@ -31,6 +32,7 @@ router.get(
 // @desc    Logout user
 // @route   GET /auth/logout
 router.get("/logout", (req, res) => {
+  //notification displayed on successfull logout
   const toastify = toast({
     appID: "com.squirrel.GitHubDesktop.GitHubDesktop",
     title: "WritePad",

@@ -21,6 +21,7 @@
                     <i class="fas fa-edit"></i>
                 </a>
                 <form action="/stories/{{_id}}" method="post" id="delete-form">
+                 {{!-- hidden method delete  --}}
                       <input type="hidden" name="_method" value="DELETE">
                       <button type="submit" class="btn red">
                           <i class="fas fa-trash"></i>

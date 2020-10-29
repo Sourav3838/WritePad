@@ -54,6 +54,8 @@ const {
 } = require("./helpers/hbs");
 
 // Handlebars
+//this will allow us to use .hbs extension instead of .handlebars
+//defaultlayout will contain all the layouts which we dont want to repeat again and again,so all the other layouts will be wrapped inside this default layout
 app.engine(
   ".hbs",
   exphbs({
@@ -94,6 +96,7 @@ app.use("/stories", require("./routes/stories"));
 app.use("/notfound", function (req, res) {
   res.render("error/404");
 });
+// any invalid route will be redirected to route "/notfound"
 app.get("/*", function (req, res) {
   res.statusCode = 404;
   res.redirect("/notfound");
