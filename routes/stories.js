@@ -41,33 +41,55 @@ router.get("/", ensureAuth, async (req, res) => {
 //@desc    stories edit page
 //@route   GET /stories/edit/:id
 router.get("/edit/:id", ensureAuth, async (req, res) => {
-  const story = await Story.findOne({ _id: req.params.id }).lean();
-  if (!story) {
-    return res.render("error/404");
-  }
-  if (story.user != req.user.id) {
-    res.redirect("/stories");
-  } else {
-    res.render("stories/edit", {
-      story,
-    });
+  try {
+    const story = await Story.findOne({ _id: req.params.id }).lean();
+    if (!story) {
+      return res.render("error/404");
+    }
+    if (story.user != req.user.id) {
+      res.redirect("/stories");
+    } else {
+      res.render("stories/edit", {
+        story,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.redirect("/dashboard");
   }
 });
 
 //@desc    update stories
 //@route   PUT /stories/:id
 router.put("/:id", ensureAuth, async (req, res) => {
-  let story = await Story.findById(req.params.id).lean();
-  if (!story) {
-    return res.render("error/404");
+  try {
+    let story = await Story.findById(req.params.id).lean();
+    if (!story) {
+      return res.render("error/404");
+    }
+    if (story.user != req.user.id) {
+      res.redirect("/stories");
+    } else {
+      story = await Story.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+        new: true, //if not existing then create one
+        runValidators: true, //to make sure that the fields are valid
+      });
+      res.redirect("/dashboard");
+    }
+  } catch (err) {
+    console.error(err);
+    res.redirect("/dashboard");
   }
-  if (story.user != req.user.id) {
-    res.redirect("/stories");
-  } else {
-    story = await Story.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-      new: true, //if not existing then create one
-      runValidators: true, //to make sure that the fields are valid
-    });
+});
+
+//@desc    delete stories
+//@route   DELETE /stories/id
+router.delete("/:id", ensureAuth, async (req, res) => {
+  try {
+    await Story.remove({ _id: req.params.id });
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.error(err);
     res.redirect("/dashboard");
   }
 });
