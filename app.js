@@ -91,6 +91,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
 app.use("/stories", require("./routes/stories"));
+app.use("/notfound", function (req, res) {
+  res.render("error/404");
+});
+app.get("/*", function (req, res) {
+  res.statusCode = 404;
+  res.redirect("/notfound");
+});
 const PORT = process.env.PORT || 5000;
 
 app.listen(
